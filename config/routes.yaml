@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+fees:
+  type:     rest
+  host:     s4-fees.wip
+  resource: App\Controller\FeeController

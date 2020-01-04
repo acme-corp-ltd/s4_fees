@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Fee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Fee|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,15 +37,23 @@ class FeeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Fee
+    /**
+     * @param $category
+     * @param $amount
+     * @return Fee|null
+     * @throws NonUniqueResultException
+     */
+    public function findOneByCategoryAmount($category, $amount): ?Fee
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('f.category = :category')
+            ->andWhere('f.limLow <= :amount')
+            ->andWhere('f.limTop >= :amount')
+            ->setParameter('category', $category)
+            ->setParameter('amount', $amount)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }
